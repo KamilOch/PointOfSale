@@ -1,6 +1,6 @@
 public interface BarCodesScanner {
 
-   String scanProduct();
+   String scanProductBarCode();
 
 }
 
