@@ -2,12 +2,11 @@ public class Printer implements PrinterInt {
 
     @Override
     public void printMessage(String message) {
-        System.out.println("Drukarka "+message);
+        System.out.println("Printer: "+message);
     }
 
     @Override
     public void printReceipt(String receipt) {
-        System.out.println("Drukarka rachunek "+ receipt);
-
+        System.out.println("Printer receipt:\n"+ receipt);
     }
 }

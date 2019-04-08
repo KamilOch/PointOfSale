@@ -7,7 +7,7 @@ public class POSTest {
     public static void main(String[] args) throws InterruptedException {
         Printer printer = new Printer();
         LcdDisplayInt display = new Monitor();
-        BarCodesScannerInt scanner = new Skaner();
+        BarCodesScannerInt scanner = new Scanner();
         List<Product> products = new ArrayList<>();
 
         products.add(new Product("123456", "Carrot", 2.10));
@@ -17,7 +17,7 @@ public class POSTest {
         PointOfSale pos = new PointOfSale(printer, display, scanner, products);
 
         pos.scanProduct();
-        scanner.ustawZwracanyKod();
+        scanner.scanProductBarCode();
         Thread.sleep(1000);
         pos.scanProduct();
         Thread.sleep(1000);

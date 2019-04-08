@@ -8,6 +8,11 @@ public class PointOfSale {
     private BarCodesScannerInt scanner;
     private List<Product> productsList;
 
+    private Product scannedProduct;
+    private List <Product> shoppingList = new ArrayList<>();
+    private double purchaseCost=0;
+    private String message ="null";
+    private String bill="";
 
     public PointOfSale(PrinterInt printer, LcdDisplayInt display, BarCodesScannerInt scanner, List<Product> productsList) {
         this.printer = printer;
@@ -15,14 +20,6 @@ public class PointOfSale {
         this.scanner = scanner;
         this.productsList = productsList;
     }
-
-    private Product scannedProduct;
-
-    private List <Product> shoppingList = new ArrayList<>();
-    private float purchaseCost=0;
-    private String message ="nic";
-    private String bill;
-
 
     private void buyProduct (String scannedBarCode){
 
@@ -35,30 +32,28 @@ public class PointOfSale {
     }
 
 
-
-    public void addToShopingCart (Product scannedProduct ){
+    private void addToShopingCart (Product scannedProduct ){
         shoppingList.add(scannedProduct);
-        bill+="Product "+scannedProduct.getProductName()+" price: "+scannedProduct.getProductPrice()+"\n";
+        bill+="Article "+scannedProduct.getProductName()+" price: "+scannedProduct.getProductPrice()+"\n";
         purchaseCost +=scannedProduct.getProductPrice();
-        message="Article "+ scannedProduct.getProductName()+"price: "+scannedProduct.getProductPrice();
+        message="Article "+ scannedProduct.getProductName()+" price: "+scannedProduct.getProductPrice();
         display.displayMessage(message);
     }
 
-    public boolean findProduct (String scanedBarCode){
+    private boolean findProduct (String scanedBarCode){
 
         for (int i=0; i<productsList.size(); i++) {
 
-            if ( productsList.get(i).getProductBarCode().equals(scanedBarCode)){
+            if (productsList.get(i).getProductBarCode().equals(scanedBarCode)){
                 scannedProduct = productsList.get(i);
                 return true;
             } else message = "Product not found";
-                return false;
         }
-        printer.printMessage(message);
         return false;
     }
 
-    public boolean checkBarCode (String scanedBarCode){
+    private boolean checkBarCode (String scanedBarCode){
+
         if (scanedBarCode.isEmpty()){
             message = "Invalid bar-code";
             return false;
@@ -73,10 +68,8 @@ public class PointOfSale {
     }
 
     public void exit() {
+
         shoppingList.clear();
         printer.printReceipt(bill+"\nTotal price: "+purchaseCost);
-
-
-
     }
 }
