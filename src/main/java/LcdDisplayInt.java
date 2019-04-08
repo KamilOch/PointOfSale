@@ -1,4 +1,4 @@
-public interface LcdDisplay {
+public interface LcdDisplayInt {
 
     void  displayMessage (String message);
 

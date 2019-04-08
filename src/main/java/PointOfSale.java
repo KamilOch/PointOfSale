@@ -3,32 +3,32 @@ import java.util.List;
 
 public class PointOfSale {
 
-    private Printer printer;
-    private LcdDisplay display;
-    private BarCodesScanner scanner;
+    private PrinterInt printer;
+    private LcdDisplayInt display;
+    private BarCodesScannerInt scanner;
     private List<Product> productsList;
 
 
-    public PointOfSale(Printer printer, LcdDisplay display, BarCodesScanner scanner, List<Product> productsList) {
+    public PointOfSale(PrinterInt printer, LcdDisplayInt display, BarCodesScannerInt scanner, List<Product> productsList) {
         this.printer = printer;
         this.display = display;
         this.scanner = scanner;
         this.productsList = productsList;
     }
 
-    private Product scanedProduct;
+    private Product scannedProduct;
 
     private List <Product> shoppingList = new ArrayList<>();
-    private float purchaseCost;
-    private String message;
+    private float purchaseCost=0;
+    private String message ="nic";
+    private String bill;
 
 
+    private void buyProduct (String scannedBarCode){
 
-    private void buyProduct (String scanedBarCode){
-
-        if(checkBarCode(scanedBarCode)){
-            if(findProduct(scanedBarCode)){
-                addToShopingCart(scanedProduct);
+        if(checkBarCode(scannedBarCode)){
+            if(findProduct(scannedBarCode)){
+                addToShopingCart(scannedProduct);
             } else  display.displayMessage(message);
 
         } else display.displayMessage(message);
@@ -36,9 +36,12 @@ public class PointOfSale {
 
 
 
-    public void addToShopingCart (Product scanedProduct ){
-        shoppingList.add(scanedProduct);
-        purchaseCost +=scanedProduct.getProductPrice();
+    public void addToShopingCart (Product scannedProduct ){
+        shoppingList.add(scannedProduct);
+        bill+="Product "+scannedProduct.getProductName()+" price: "+scannedProduct.getProductPrice()+"\n";
+        purchaseCost +=scannedProduct.getProductPrice();
+        message="Article "+ scannedProduct.getProductName()+"price: "+scannedProduct.getProductPrice();
+        display.displayMessage(message);
     }
 
     public boolean findProduct (String scanedBarCode){
@@ -46,17 +49,17 @@ public class PointOfSale {
         for (int i=0; i<productsList.size(); i++) {
 
             if ( productsList.get(i).getProductBarCode().equals(scanedBarCode)){
-                scanedProduct = productsList.get(i);
+                scannedProduct = productsList.get(i);
                 return true;
             } else message = "Product not found";
                 return false;
         }
-
+        printer.printMessage(message);
         return false;
     }
 
     public boolean checkBarCode (String scanedBarCode){
-        if (scanedBarCode.equals("")){
+        if (scanedBarCode.isEmpty()){
             message = "Invalid bar-code";
             return false;
         } else return true;
@@ -65,11 +68,15 @@ public class PointOfSale {
 
     public void scanProduct() {
 
-        String kod =scanner.scanProductBarCode();
-        buyProduct (kod);
+        String scannedCode =scanner.scanProductBarCode();
+        buyProduct (scannedCode);
     }
 
     public void exit() {
+        shoppingList.clear();
+        printer.printReceipt(bill+"\nTotal price: "+purchaseCost);
+
+
 
     }
 }

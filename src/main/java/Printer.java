@@ -1,7 +1,13 @@
-import java.util.ArrayList;
+public class Printer implements PrinterInt {
 
-public interface Printer {
+    @Override
+    public void printMessage(String message) {
+        System.out.println("Drukarka "+message);
+    }
 
-    void  printReceipt (ArrayList shoppingList, float purchaseCost);
+    @Override
+    public void printReceipt(String receipt) {
+        System.out.println("Drukarka rachunek "+ receipt);
 
+    }
 }
