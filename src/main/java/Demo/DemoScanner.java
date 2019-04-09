@@ -1,3 +1,7 @@
+package Demo;
+
+import Domain.BarCodesScanner;
+
 public class DemoScanner implements BarCodesScanner {
 
     @Override

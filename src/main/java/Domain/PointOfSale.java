@@ -1,3 +1,8 @@
+package Domain;
+
+import Demo.Product;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +48,7 @@ public class PointOfSale {
             if (productsList.get(i).getProductBarCode().equals(scanedBarCode)){
                 scannedProduct = productsList.get(i);
                 return true;
-            } else message = "Product not found";
+            } else message = "Demo.Product not found";
         }
         return false;
     }

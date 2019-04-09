@@ -1,3 +1,4 @@
+package Demo;
 
 public class Product {
 
