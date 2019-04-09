@@ -1,12 +1,7 @@
-public class Printer implements PrinterInt {
+import java.util.ArrayList;
 
-    @Override
-    public void printMessage(String message) {
-        System.out.println("Printer: "+message);
-    }
+public interface Printer {
 
-    @Override
-    public void printReceipt(String receipt) {
-        System.out.println("Printer receipt:\n"+ receipt);
-    }
+    void  printReceipt (String receipt);
+
 }

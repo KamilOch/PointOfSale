@@ -5,9 +5,9 @@ public class POSTest {
 
 
     public static void main(String[] args) throws InterruptedException {
-        Printer printer = new Printer();
-        LcdDisplayInt display = new Monitor();
-        BarCodesScannerInt scanner = new Scanner();
+        Printer printer = new DemoPrinter();
+        LcdDisplay display = new DemoMonitor();
+        BarCodesScanner scanner = new DemoScanner();
         List<Product> products = new ArrayList<>();
 
         products.add(new Product("123456", "Carrot", 2.10));

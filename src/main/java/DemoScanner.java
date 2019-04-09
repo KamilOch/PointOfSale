@@ -1,4 +1,4 @@
-public class Scanner implements BarCodesScannerInt {
+public class DemoScanner implements BarCodesScanner {
 
     @Override
     public String scanProductBarCode() {

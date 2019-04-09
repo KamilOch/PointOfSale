@@ -3,9 +3,9 @@ import java.util.List;
 
 public class PointOfSale {
 
-    private PrinterInt printer;
-    private LcdDisplayInt display;
-    private BarCodesScannerInt scanner;
+    private Printer printer;
+    private LcdDisplay display;
+    private BarCodesScanner scanner;
     private List<Product> productsList;
 
     private Product scannedProduct;
@@ -14,7 +14,7 @@ public class PointOfSale {
     private String message ="null";
     private String bill="";
 
-    public PointOfSale(PrinterInt printer, LcdDisplayInt display, BarCodesScannerInt scanner, List<Product> productsList) {
+    public PointOfSale(Printer printer, LcdDisplay display, BarCodesScanner scanner, List<Product> productsList) {
         this.printer = printer;
         this.display = display;
         this.scanner = scanner;
@@ -22,12 +22,10 @@ public class PointOfSale {
     }
 
     public void buyProduct (String scannedBarCode){
-
         if(checkBarCode(scannedBarCode)){
             if(findProduct(scannedBarCode)){
                 addToShopingCart(scannedProduct);
             } else  display.displayMessage(message);
-
         } else display.displayMessage(message);
     }
 
@@ -41,9 +39,7 @@ public class PointOfSale {
     }
 
     public boolean findProduct (String scanedBarCode){
-
         for (int i=0; i<productsList.size(); i++) {
-
             if (productsList.get(i).getProductBarCode().equals(scanedBarCode)){
                 scannedProduct = productsList.get(i);
                 return true;
@@ -52,9 +48,8 @@ public class PointOfSale {
         return false;
     }
 
-     public boolean checkBarCode (String scanedBarCode){
-
-        if (scanedBarCode.isEmpty()){
+     public boolean checkBarCode (String scannedBarCode){
+        if (scannedBarCode.isEmpty()){
             message = "Invalid bar-code";
             return false;
         } else return true;
@@ -62,13 +57,11 @@ public class PointOfSale {
 
 
     public void scanProduct() {
-
         String scannedCode =scanner.scanProductBarCode();
         buyProduct (scannedCode);
     }
 
     public void exit() {
-
         shoppingList.clear();
         printer.printReceipt(bill+"\nTotal price: "+purchaseCost);
     }

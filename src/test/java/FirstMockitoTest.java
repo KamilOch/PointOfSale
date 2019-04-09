@@ -1,21 +1,18 @@
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 
 public class FirstMockitoTest {
 
 
-        PrinterInt printerMock = mock(Printer.class);
-        LcdDisplayInt displayMock = mock(Monitor.class);
-        BarCodesScannerInt scannerMock = mock(Scanner.class);
-        Product productMock = mock(Product.class);
-        List<Product> productsMock = mock(ArrayList.class);
+        Printer printerMock = mock(DemoPrinter.class);
+        LcdDisplay displayMock = mock(DemoMonitor.class);
+        BarCodesScanner scannerMock = mock(DemoScanner.class);
+       // Product productMock = mock(Product.class);
+        List<Product> productsMock =new ArrayList<>();
 
 /*
     productsMock.add(new Product("123456", "Carrot", 2.10));
@@ -25,56 +22,62 @@ public class FirstMockitoTest {
 */
         PointOfSale posTest = new PointOfSale(printerMock, displayMock, scannerMock, productsMock);
 
-
     @Test
-    public void test(){
-        assertTrue(true);
-    }
+    public void shouldPrintEmptyRecipt(){
+        // Given
 
-    @Test
-    public void ExitTest(){
-
-        List<Product> shoppingListMock = mock(ArrayList.class);
-        shoppingListMock.add(new Product("999999","testName",10.10));
+        // When
         posTest.exit();
-
-        verify(shoppingListMock).clear();
-        verify(printerMock).printReceipt("Test");
-
-    }
-
-    /* to mi kompletnie nie dziala!
-        @Test
-        public void letsMockCheckBarCodeTrue(){
-            when(posTest.checkBarCode("1111")).thenReturn(true);
-            assertTrue(true);
-        }
-        @Test
-        public void letsMockCheckBarCodeFalse(){
-            when(posTest.checkBarCode("")).thenReturn(false);
-            assertFalse(false);
-        }
-        !!
-        @Test
-        public void CheckBarCodeTestTrue2(){
-            when(posTest.checkBarCode("123456")).thenReturn(true);
-            assertTrue(true);
-        }
-        @Test
-        public void CheckBarCodeTestFalse2(){
-            when(posTest.checkBarCode("")).thenReturn(false);
-            assertFalse(false);
-        }
-         */
-    @Test
-    public void CheckBarCodeTestFalse(){
-        String s ="";
-        assertFalse(posTest.checkBarCode(s));
+        // Then
+        verify(printerMock).printReceipt("\nTotal price: 0.0");
     }
     @Test
-    public void CheckBarCodeTestTrue(){
-        String s ="123456";
-        assertTrue(posTest.checkBarCode(s));
+    public void shouldPrintReceiptForOneProduct(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
+        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        posTest.scanProduct();
+        // When
+        posTest.exit();
+        // Then
+        verify(printerMock).printReceipt("Article TestCarrot price: 99.99\n" +
+                "\n" +
+                "Total price: 99.99");
+    }
+    @Test
+    public void shouldPrintReceiptForTwoProducts(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
+        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        posTest.scanProduct();
+        posTest.scanProduct();
+        // When
+        posTest.exit();
+        // Then
+        verify(printerMock).printReceipt("Article TestCarrot price: 99.99\n" +
+                "Article TestCarrot price: 99.99\n" +
+                "\n" +
+                "Total price: 199.98");
+    }
+    @Test
+    public void shouldPrintReceiptWhenProductIsMissing(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("No product");
+        posTest.scanProduct();
+        // When
+        posTest.exit();
+        // Then
+        verify(printerMock).printReceipt("\nTotal price: 0.0");
+    }
+    @Test
+    public void shouldPrintReceiptWhenMissingScannedBarCode(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("");
+        posTest.scanProduct();
+        // When
+        posTest.exit();
+        // Then
+        verify(printerMock).printReceipt("\nTotal price: 0.0");
     }
 
 }
