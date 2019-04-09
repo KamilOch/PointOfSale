@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class FirstMockitoTest {
@@ -16,10 +15,11 @@ public class FirstMockitoTest {
         LcdDisplayInt displayMock = mock(Monitor.class);
         BarCodesScannerInt scannerMock = mock(Scanner.class);
         Product productMock = mock(Product.class);
-        List<Product> productsMock = new ArrayList<>();
+        List<Product> productsMock = mock(ArrayList.class);
 
-/* nie pozwala mi stworzyc obiektow Product
+/*
     productsMock.add(new Product("123456", "Carrot", 2.10));
+    productsMock.add(new Product("999999","testName",10.10));
     productsMock.add(new Product("234561", "Onion", 1.15));
     productsMock.add(new Product("345612", "Potato", 3.02));
 */
@@ -30,6 +30,19 @@ public class FirstMockitoTest {
     public void test(){
         assertTrue(true);
     }
+
+    @Test
+    public void ExitTest(){
+
+        List<Product> shoppingListMock = mock(ArrayList.class);
+        shoppingListMock.add(new Product("999999","testName",10.10));
+        posTest.exit();
+
+        verify(shoppingListMock).clear();
+        verify(printerMock).printReceipt("Test");
+
+    }
+
     /* to mi kompletnie nie dziala!
         @Test
         public void letsMockCheckBarCodeTrue(){
