@@ -21,7 +21,7 @@ public class PointOfSale {
         this.productsList = productsList;
     }
 
-    private void buyProduct (String scannedBarCode){
+    public void buyProduct (String scannedBarCode){
 
         if(checkBarCode(scannedBarCode)){
             if(findProduct(scannedBarCode)){
@@ -32,7 +32,7 @@ public class PointOfSale {
     }
 
 
-    private void addToShopingCart (Product scannedProduct ){
+    public void addToShopingCart (Product scannedProduct ){
         shoppingList.add(scannedProduct);
         bill+="Article "+scannedProduct.getProductName()+" price: "+scannedProduct.getProductPrice()+"\n";
         purchaseCost +=scannedProduct.getProductPrice();
@@ -40,7 +40,7 @@ public class PointOfSale {
         display.displayMessage(message);
     }
 
-    private boolean findProduct (String scanedBarCode){
+    public boolean findProduct (String scanedBarCode){
 
         for (int i=0; i<productsList.size(); i++) {
 
@@ -52,7 +52,7 @@ public class PointOfSale {
         return false;
     }
 
-     boolean checkBarCode (String scanedBarCode){
+     public boolean checkBarCode (String scanedBarCode){
 
         if (scanedBarCode.isEmpty()){
             message = "Invalid bar-code";
