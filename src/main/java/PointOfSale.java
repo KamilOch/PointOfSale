@@ -52,7 +52,7 @@ public class PointOfSale {
         return false;
     }
 
-     boolean checkBarCode (String scanedBarCode){
+     private boolean checkBarCode (String scanedBarCode){
 
         if (scanedBarCode.isEmpty()){
             message = "Invalid bar-code";
