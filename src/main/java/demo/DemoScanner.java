@@ -8,5 +8,4 @@ public class DemoScanner implements BarCodesScanner {
     public String scanProductBarCode() {
         return "234561";
     }
-
 }

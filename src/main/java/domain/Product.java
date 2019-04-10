@@ -1,17 +1,18 @@
 package domain;
 
+import java.math.BigDecimal;
+
 public class Product {
 
    private String productBarCode;
    private String productName;
-   private double productPrice;
+   private BigDecimal productPrice;
 
-    public Product(String productBarCode, String productName, double productPrice) {
+    public Product(String productBarCode, String productName, BigDecimal productPrice) {
         this.productBarCode = productBarCode;
         this.productName = productName;
         this.productPrice = productPrice;
     }
-
 
     public String getProductBarCode() {
         return productBarCode;
@@ -21,8 +22,8 @@ public class Product {
         return productName;
     }
 
-    public double getProductPrice() {
-        double copyProductPrice = productPrice;
+    public BigDecimal getProductPrice() {
+        BigDecimal copyProductPrice = productPrice;
         return copyProductPrice;
     }
 }

@@ -8,13 +8,13 @@ import domain.PointOfSale;
 import domain.Printer;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
 
 
-public class FirstMockitoTest {
-
+public class PointOfSaleTest {
 
         private Printer printerMock = mock(DemoPrinter.class);
         private LcdDisplay displayMock = mock(DemoMonitor.class);
@@ -25,19 +25,19 @@ public class FirstMockitoTest {
 
     //Printer tests
     @Test
-    public void shouldPrintEmptyRecipt(){
+    public void shouldPrintEmptyReceipt(){
         // Given
 
         // When
         posTest.exit();
         // Then
-        verify(printerMock).printReceipt("\nTotal price: 0.0");
+        verify(printerMock).printReceipt("\nTotal price: 0");
     }
     @Test
     public void shouldPrintReceiptForOneProduct(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
-        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        productsMock.add(new Product("Test123456", "TestCarrot", new BigDecimal("99.99")));
         posTest.scanProduct();
         // When
         posTest.exit();
@@ -50,7 +50,7 @@ public class FirstMockitoTest {
     public void shouldPrintReceiptForTwoProducts(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
-        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        productsMock.add(new Product("Test123456", "TestCarrot", new BigDecimal("99.99")));
         posTest.scanProduct();
         posTest.scanProduct();
         // When
@@ -69,7 +69,7 @@ public class FirstMockitoTest {
         // When
         posTest.exit();
         // Then
-        verify(printerMock).printReceipt("\nTotal price: 0.0");
+        verify(printerMock).printReceipt("\nTotal price: 0");
     }
     @Test
     public void shouldPrintReceiptWhenMissingScannedBarCode(){
@@ -79,21 +79,21 @@ public class FirstMockitoTest {
         // When
         posTest.exit();
         // Then
-        verify(printerMock).printReceipt("\nTotal price: 0.0");
+        verify(printerMock).printReceipt("\nTotal price: 0");
     }
     //Display tests
     @Test
-    public void shoulDisplayProductNameAndPriceWhenScannedBarCode(){
+    public void shouldDisplayProductNameAndPriceWhenScannedBarCode(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
-        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        productsMock.add(new Product("Test123456", "TestCarrot", new BigDecimal("99.99")));
         // When
         posTest.scanProduct();
         // Then
         verify(displayMock).displayMessage("Article TestCarrot price: 99.99");
     }
     @Test
-    public void shoulDisplayErrorMessageWhenProductNotFound(){
+    public void shouldDisplayErrorMessageWhenProductNotFound(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("xxxx");
         // When
@@ -102,7 +102,7 @@ public class FirstMockitoTest {
         verify(displayMock).displayMessage("Product not found");
     }
     @Test
-    public void shoulDisplayErrorMessageWhenMissingScannedBarCode(){
+    public void shouldDisplayErrorMessageWhenMissingScannedBarCode(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("");
         // When
@@ -112,19 +112,19 @@ public class FirstMockitoTest {
     }
 
     @Test
-    public void shouldDisplayEmptyRecipt(){
+    public void shouldDisplayEmptyReceipt(){
         // Given
 
         // When
         posTest.exit();
         // Then
-        verify(displayMock).displayMessage("Total price: 0.0");
+        verify(displayMock).displayMessage("Total price: 0");
     }
     @Test
     public void shouldDisplayReceiptForOneProduct(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
-        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        productsMock.add(new Product("Test123456", "TestCarrot", new BigDecimal("99.99")));
         posTest.scanProduct();
         // When
         posTest.exit();
@@ -135,7 +135,7 @@ public class FirstMockitoTest {
     public void shouldDisplayReceiptForTwoProducts(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
-        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        productsMock.add(new Product("Test123456", "TestCarrot", new BigDecimal("99.99")));
         posTest.scanProduct();
         posTest.scanProduct();
         // When
@@ -147,7 +147,7 @@ public class FirstMockitoTest {
     public void shouldClearShoppingListWhenExit(){
         // Given
         when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
-        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        productsMock.add(new Product("Test123456", "TestCarrot", new BigDecimal("99.99")));
         // When
         posTest.scanProduct();
         posTest.exit();
