@@ -87,5 +87,24 @@ public class FirstMockitoTest {
         // Then
         verify(printerMock).printReceipt("\nTotal price: 0.0");
     }
-
+    //Display
+    @Test
+    public void shoulDisplayProductNameAndPriceWhenScannedBarCode(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
+        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        // When
+        posTest.scanProduct();
+        // Then
+        verify(displayMock).displayMessage("Article TestCarrot price: 99.99");
+    }
+    @Test
+    public void shoulDisplayErrorMessageWhenProductNotFound(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("xxxx");
+        // When
+        posTest.scanProduct();
+        // Then
+        verify(displayMock).displayMessage("Product not found");
+    }
 }

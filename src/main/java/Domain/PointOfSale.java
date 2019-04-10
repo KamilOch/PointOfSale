@@ -2,7 +2,6 @@ package Domain;
 
 import Demo.Product;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +29,9 @@ public class PointOfSale {
         if(checkBarCode(scannedBarCode)){
             if(findProduct(scannedBarCode)){
                 addToShopingCart(scannedProduct);
-            } else  display.displayMessage(message);
+            }
         } else display.displayMessage(message);
     }
-
 
     public void addToShopingCart (Product scannedProduct ){
         shoppingList.add(scannedProduct);
@@ -44,12 +42,14 @@ public class PointOfSale {
     }
 
     public boolean findProduct (String scanedBarCode){
+
         for (int i=0; i<productsList.size(); i++) {
             if (productsList.get(i).getProductBarCode().equals(scanedBarCode)){
                 scannedProduct = productsList.get(i);
                 return true;
-            } else message = "Demo.Product not found";
-        }
+            }
+        } message = "Product not found";
+        display.displayMessage(message);
         return false;
     }
 
@@ -59,7 +59,6 @@ public class PointOfSale {
             return false;
         } else return true;
     }
-
 
     public void scanProduct() {
         String scannedCode =scanner.scanProductBarCode();
