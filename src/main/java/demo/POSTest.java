@@ -22,10 +22,21 @@ public class POSTest {
         PointOfSale pos = new PointOfSale(printer, display, scanner, products);
 
         pos.scanProduct();
-        scanner.scanProductBarCode();
+        //scanner.scanProductBarCode();
         Thread.sleep(1000);
         pos.scanProduct();
         Thread.sleep(1000);
         pos.exit();
+
+        Thread.sleep(1000);
+       // scanner.scanProductBarCode();
+        pos.scanProduct();
+        Thread.sleep(1000);
+        pos.scanProduct();
+        Thread.sleep(1000);
+        pos.scanProduct();
+        Thread.sleep(1000);
+        pos.exit();
+
     }
 }

@@ -143,5 +143,22 @@ public class FirstMockitoTest {
         // Then
         verify(displayMock).displayMessage("Total price: 199.98");
     }
+    @Test
+    public void shouldClearShoppingListWhenExit(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
+        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        // When
+        posTest.scanProduct();
+        posTest.exit();
+        posTest.scanProduct();
+        posTest.scanProduct();
+        posTest.exit();
 
+        // Then
+        verify(printerMock).printReceipt("Article TestCarrot price: 99.99\n" +
+                "Article TestCarrot price: 99.99\n" +
+                "\n" +
+                "Total price: 199.98");
+    }
 }

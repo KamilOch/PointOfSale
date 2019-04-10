@@ -64,8 +64,13 @@ public class PointOfSale {
     }
 
     public void exit() {
-        shoppingList.clear();
+       // shoppingList.clear();
         printer.printReceipt(bill+"\nTotal price: "+purchaseCost);
         display.displayMessage("Total price: "+purchaseCost);
+        scannedProduct = null;
+        shoppingList.clear();
+        purchaseCost=0;
+        //message ="null";
+        bill="";
     }
 }
