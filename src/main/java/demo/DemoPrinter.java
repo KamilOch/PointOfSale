@@ -1,6 +1,6 @@
-package Demo;
+package demo;
 
-import Domain.Printer;
+import domain.Printer;
 
 public class DemoPrinter implements Printer {
 

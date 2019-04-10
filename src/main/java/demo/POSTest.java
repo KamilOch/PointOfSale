@@ -1,10 +1,10 @@
-package Demo;
+package demo;
 
 
-import Domain.BarCodesScanner;
-import Domain.LcdDisplay;
-import Domain.PointOfSale;
-import Domain.Printer;
+import domain.BarCodesScanner;
+import domain.LcdDisplay;
+import domain.PointOfSale;
+import domain.Printer;
 
 import java.util.ArrayList;
 import java.util.List;

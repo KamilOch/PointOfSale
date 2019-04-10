@@ -1,11 +1,11 @@
-import Demo.DemoMonitor;
-import Demo.DemoPrinter;
-import Demo.DemoScanner;
-import Demo.Product;
-import Domain.BarCodesScanner;
-import Domain.LcdDisplay;
-import Domain.PointOfSale;
-import Domain.Printer;
+import demo.DemoMonitor;
+import demo.DemoPrinter;
+import demo.DemoScanner;
+import demo.Product;
+import domain.BarCodesScanner;
+import domain.LcdDisplay;
+import domain.PointOfSale;
+import domain.Printer;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,12 +16,12 @@ import static org.mockito.Mockito.*;
 public class FirstMockitoTest {
 
 
-        Printer printerMock = mock(DemoPrinter.class);
-        LcdDisplay displayMock = mock(DemoMonitor.class);
-        BarCodesScanner scannerMock = mock(DemoScanner.class);
-        List<Product> productsMock =new ArrayList<>();
+        private Printer printerMock = mock(DemoPrinter.class);
+        private LcdDisplay displayMock = mock(DemoMonitor.class);
+        private BarCodesScanner scannerMock = mock(DemoScanner.class);
+        private List<Product> productsMock =new ArrayList<>();
 
-        PointOfSale posTest = new PointOfSale(printerMock, displayMock, scannerMock, productsMock);
+        private PointOfSale posTest = new PointOfSale(printerMock, displayMock, scannerMock, productsMock);
 
     //Printer tests
     @Test

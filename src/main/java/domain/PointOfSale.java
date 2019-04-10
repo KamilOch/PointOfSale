@@ -1,6 +1,6 @@
-package Domain;
+package domain;
 
-import Demo.Product;
+import demo.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class PointOfSale {
         this.productsList = productsList;
     }
 
-    public void buyProduct (String scannedBarCode){
+    private void buyProduct (String scannedBarCode){
         if(checkBarCode(scannedBarCode)){
             if(findProduct(scannedBarCode)){
                 addToShopingCart(scannedProduct);
@@ -33,7 +33,7 @@ public class PointOfSale {
         } else display.displayMessage(message);
     }
 
-    public void addToShopingCart (Product scannedProduct ){
+    private void addToShopingCart (Product scannedProduct ){
         shoppingList.add(scannedProduct);
         bill+="Article "+scannedProduct.getProductName()+" price: "+scannedProduct.getProductPrice()+"\n";
         purchaseCost +=scannedProduct.getProductPrice();
@@ -41,7 +41,7 @@ public class PointOfSale {
         display.displayMessage(message);
     }
 
-    public boolean findProduct (String scanedBarCode){
+    private boolean findProduct (String scanedBarCode){
 
         for (int i=0; i<productsList.size(); i++) {
             if (productsList.get(i).getProductBarCode().equals(scanedBarCode)){
@@ -53,7 +53,7 @@ public class PointOfSale {
         return false;
     }
 
-     public boolean checkBarCode (String scannedBarCode){
+     private boolean checkBarCode (String scannedBarCode){
         if (scannedBarCode.isEmpty()){
             message = "Invalid bar-code";
             return false;

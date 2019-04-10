@@ -1,6 +1,6 @@
-package Demo;
+package demo;
 
-import Domain.LcdDisplay;
+import domain.LcdDisplay;
 
 public class DemoMonitor implements LcdDisplay {
 

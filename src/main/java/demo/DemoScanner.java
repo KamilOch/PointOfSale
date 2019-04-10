@@ -1,6 +1,6 @@
-package Demo;
+package demo;
 
-import Domain.BarCodesScanner;
+import domain.BarCodesScanner;
 
 public class DemoScanner implements BarCodesScanner {
 
