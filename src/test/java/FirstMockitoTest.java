@@ -1,7 +1,7 @@
 import demo.DemoMonitor;
 import demo.DemoPrinter;
 import demo.DemoScanner;
-import demo.Product;
+import domain.Product;
 import domain.BarCodesScanner;
 import domain.LcdDisplay;
 import domain.PointOfSale;
@@ -143,6 +143,5 @@ public class FirstMockitoTest {
         // Then
         verify(displayMock).displayMessage("Total price: 199.98");
     }
-
 
 }

@@ -1,4 +1,4 @@
-package demo;
+package domain;
 
 public class Product {
 
