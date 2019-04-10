@@ -23,7 +23,6 @@ public class Product {
     }
 
     public BigDecimal getProductPrice() {
-        BigDecimal copyProductPrice = productPrice;
-        return copyProductPrice;
+        return productPrice;
     }
 }
