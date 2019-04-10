@@ -68,5 +68,6 @@ public class PointOfSale {
     public void exit() {
         shoppingList.clear();
         printer.printReceipt(bill+"\nTotal price: "+purchaseCost);
+        display.displayMessage("Total price: "+purchaseCost);
     }
 }

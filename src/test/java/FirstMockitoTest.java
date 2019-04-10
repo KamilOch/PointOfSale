@@ -19,17 +19,11 @@ public class FirstMockitoTest {
         Printer printerMock = mock(DemoPrinter.class);
         LcdDisplay displayMock = mock(DemoMonitor.class);
         BarCodesScanner scannerMock = mock(DemoScanner.class);
-       // Demo.Product productMock = mock(Demo.Product.class);
         List<Product> productsMock =new ArrayList<>();
 
-/*
-    productsMock.add(new Demo.Product("123456", "Carrot", 2.10));
-    productsMock.add(new Demo.Product("999999","testName",10.10));
-    productsMock.add(new Demo.Product("234561", "Onion", 1.15));
-    productsMock.add(new Demo.Product("345612", "Potato", 3.02));
-*/
         PointOfSale posTest = new PointOfSale(printerMock, displayMock, scannerMock, productsMock);
 
+    //Printer tests
     @Test
     public void shouldPrintEmptyRecipt(){
         // Given
@@ -87,7 +81,7 @@ public class FirstMockitoTest {
         // Then
         verify(printerMock).printReceipt("\nTotal price: 0.0");
     }
-    //Display
+    //Display tests
     @Test
     public void shoulDisplayProductNameAndPriceWhenScannedBarCode(){
         // Given
@@ -107,4 +101,48 @@ public class FirstMockitoTest {
         // Then
         verify(displayMock).displayMessage("Product not found");
     }
+    @Test
+    public void shoulDisplayErrorMessageWhenMissingScannedBarCode(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("");
+        // When
+        posTest.scanProduct();
+        // Then
+        verify(displayMock).displayMessage("Invalid bar-code");
+    }
+
+    @Test
+    public void shouldDisplayEmptyRecipt(){
+        // Given
+
+        // When
+        posTest.exit();
+        // Then
+        verify(displayMock).displayMessage("Total price: 0.0");
+    }
+    @Test
+    public void shouldDisplayReceiptForOneProduct(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
+        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        posTest.scanProduct();
+        // When
+        posTest.exit();
+        // Then
+        verify(displayMock).displayMessage("Total price: 99.99");
+    }
+    @Test
+    public void shouldDisplayReceiptForTwoProducts(){
+        // Given
+        when(scannerMock.scanProductBarCode()).thenReturn("Test123456");
+        productsMock.add(new Product("Test123456", "TestCarrot", 99.99));
+        posTest.scanProduct();
+        posTest.scanProduct();
+        // When
+        posTest.exit();
+        // Then
+        verify(displayMock).displayMessage("Total price: 199.98");
+    }
+
+
 }
